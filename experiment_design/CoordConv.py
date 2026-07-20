@@ -153,8 +153,8 @@ def geo2faceElAz(geoElAzPair, degFlag = False, tilt = (0.0,0.0)):
         yf = xg*R_GF[1,0] + yg*R_GF[1,1] + zg*R_GF[1,2]
         zf = xg*R_GF[2,0] + yg*R_GF[2,1] + zg*R_GF[2,2]
 
-        faceEl = scipy.arcsin(zf)
-        faceAz =  scipy.arctan2(yf,xf)
+        faceEl = np.arcsin(zf)
+        faceAz =  np.arctan2(yf,xf)
         
         if degFlag == True:
             faceEl = faceEl*180.0/pi
@@ -182,17 +182,17 @@ def Rotate_Face(tilt):
     #                                                        #
     ##########################################################
     """
-    AZ_ROT = scipy.deg2rad(tilt[1])
-    E_TILT = scipy.deg2rad(tilt[0])
+    AZ_ROT = np.deg2rad(tilt[1])
+    E_TILT = np.deg2rad(tilt[0])
 
     #R_FG1 describes step 1 (transform xyz geodetic to a new xyz)
-    R_FG1 = scipy.array([[ scipy.cos(AZ_ROT),scipy.sin(AZ_ROT), 0 ],
-                         [ -scipy.sin(AZ_ROT), scipy.cos(AZ_ROT), 0 ],
+    R_FG1 = np.array([[ np.cos(AZ_ROT),np.sin(AZ_ROT), 0 ],
+                         [ -np.sin(AZ_ROT), np.cos(AZ_ROT), 0 ],
                          [ 0, 0, 1 ]])
     #R_FG2 describes step 2 (transform new xyz to xyz face relative)
-    R_FG2 = scipy.array([[ scipy.cos(E_TILT), 0, scipy.sin(E_TILT)],
+    R_FG2 = np.array([[ np.cos(E_TILT), 0, np.sin(E_TILT)],
                          [ 0, 1, 0 ],
-                         [ -scipy.sin(E_TILT), 0, scipy.cos(E_TILT)]])
+                         [ -np.sin(E_TILT), 0, np.cos(E_TILT)]])
 
     #R_FG is the total transformation
     R_FG = R_FG1.dot(R_FG2)
